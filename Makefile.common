@@ -1,0 +1,21 @@
+# makefile.common
+
+CXX = g++
+
+# C++ flags
+
+ARCH := $(shell getconf LONG_BIT)
+
+CXX_FLAGS_32 := -m32
+CXX_FLAGS_64 := -m64
+
+CXXFLAGS := $(CXX_FLAGS_$(ARCH))
+CXXFLAGS += -MD
+CXXFLAGS += -Wall
+CXXFLAGS += -Werror
+ifeq ("$(DEBUG)", "y")
+CXXFLAGS += -g
+else
+CXXFLAGS += -DNDEBUG
+CXXFLAGS += -O2
+endif
