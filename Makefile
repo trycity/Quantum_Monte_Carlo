@@ -1,14 +1,14 @@
 # Top level makefile
 
-COMMON_DIRS = utilities
-COMMON_DIRS += initialization
-COMMON_DIRS += system
+COMMON_DIRS = src/utils
+#COMMON_DIRS += src/initialization
+#COMMON_DIRS += src/system
 
-SOURCE_DIRS = initialization
-SOURCE_DIRS += system
+#SOURCE_DIRS = src/initialization
+#SOURCE_DIRS += src/system
 
-ARTIFACT_DIRS = logs
-ARTIFACT_DIRS += docs
+#ARTIFACT_DIRS = logs
+#ARTIFACT_DIRS += docs
 
 .PHONY: all docs test analysis clean memcheck artifacts
 
@@ -52,7 +52,7 @@ clean:
 	 (echo $$dir; cd $$dir; make clean)||exit;\
 	done
 	
-	for dir in $(ARTIFACT_DIRS); do \
-	 (echo $$dir; cd $$dir; make clean)||exit;\
-	done
+#	for dir in $(ARTIFACT_DIRS); do \
+#	 (echo $$dir; cd $$dir; make clean)||exit;\
+#	done
 

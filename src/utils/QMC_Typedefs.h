@@ -15,6 +15,7 @@ namespace QMC
 namespace UTILS
 {
 
+/// alias representing a point in the simulation
 using QMCPoint = std::valarray<double>;
 
 

@@ -13,6 +13,7 @@ CXXFLAGS := $(CXX_FLAGS_$(ARCH))
 CXXFLAGS += -MD
 CXXFLAGS += -Wall
 CXXFLAGS += -Werror
+CXXFLAGS += -std=c++14
 ifeq ("$(DEBUG)", "y")
 CXXFLAGS += -g
 else
