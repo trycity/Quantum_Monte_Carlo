@@ -20,7 +20,7 @@ double QMC_Distance(const QMCPoint& aPointA, const QMCPoint& aPointB)
    QMCPoint X = aPointA - aPointB;
    std::valarray<double> Y = X*X;
    
-   return sqrt(Y.sum());
+   return std::sqrt(Y.sum());
 }
 
 }; // end namespace UTILS
