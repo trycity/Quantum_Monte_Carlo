@@ -1,7 +1,7 @@
 # Top level makefile
 
 COMMON_DIRS = src/utils
-#COMMON_DIRS += src/initialization
+COMMON_DIRS += src/initialization
 #COMMON_DIRS += src/system
 
 #SOURCE_DIRS = src/initialization
