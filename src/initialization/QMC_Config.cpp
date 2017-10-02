@@ -75,12 +75,68 @@ void QMC_Config::initialize()
 }
 
 
-void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val)
-{}
-
-
-void QMC_Config::move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint, bool aComputeEnergyFlag)
+void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint)
 {
+   // select the particle in preparation for moving
+   unsigned pNumber = *pNode;
+   
+   // compute its distance to the other particles
+   std::vector<double> interParticleDistances(m_NumParticles-1);
+   
+   for(unsigned i{0}; i<pNumber; ++i)
+   {
+      interParticleDistances[i] = UTILS::QMC_Distance(m_Points[pNumber], m_Points[i]);
+   }
+   
+   for(unsigned i{pNumber+1}; i<m_NumParticles; ++i)
+   {
+      interParticleDistances[i] = UTILS::QMC_Distance(m_Points[pNumber], m_Points[i]);
+   }
+   
+   // random number generator
+   std::default_random_engine generator;
+   std::uniform_real_distribution<double> distribution(0.0, 1.0);
+   
+   // make a trial move and recompute distances to other particles
+   aNewPoint.resize(m_NumDimensions);
+   std::vector<double> interParticleDistancesTrial(m_NumParticles-1);
+   bool acceptPosition{true};
+   
+   do
+   {
+      for(unsigned dim{0}; dim<m_NumDimensions; dim++)
+      {
+         aNewPoint[dim] = (distribution(generator) - 0.5)*m_BoxSize[dim];
+      }
+      
+      for(unsigned i{0}; i<pNumber; ++i)
+      {
+         interParticleDistancesTrial[i] = UTILS::QMC_Distance(m_Points[pNumber], m_Points[i]);
+         if(interParticleDistancesTrial[i] < m_ParticleRadius)
+         {
+            acceptPosition = false;
+            break;
+         }
+      }
+   
+      for(unsigned i{pNumber+1}; i<m_NumParticles; ++i)
+      {
+         interParticleDistancesTrial[i] = UTILS::QMC_Distance(m_Points[pNumber], m_Points[i]);
+         if(interParticleDistancesTrial[i] < m_ParticleRadius)
+         {
+            acceptPosition = false;
+            break;
+         }
+      }
+      
+   }while(!acceptPosition);   
+      
+}
+
+
+void QMC_Config::move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint)
+{
+   m_Points[aNodeNumber] = aNewPoint;
 }
 
 }; // end namespace QMC

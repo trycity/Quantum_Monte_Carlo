@@ -52,7 +52,7 @@ public:
     * @param aNewPoint The new position of the node
     * @param aProb_Val A pointer to the probability value
     */
-   void trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val);
+   void trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint);
    
    /**
     * Performs a move of a node from some initial point to an new point
@@ -61,7 +61,7 @@ public:
     * @param aNewPoint The new position of the node
     * @param aComputeEnergyFlag Flag determines if energy terms are to be computed
     */
-   void move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint, bool aComputeEnergyFlag);
+   void move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint);
    
    /**
     * Computes the energy of the system
