@@ -15,11 +15,12 @@ namespace QMC
 {
  
 QMC_Config::QMC_Config(unsigned aNumParticles, unsigned aNumDims, double aParticleRadius,
-                       const std::valarray<double>& aBoxSize):
+                       const std::valarray<double>& aBoxSize, unsigned aMax_Correlation):
                        m_NumParticles(aNumParticles),
                        m_NumDimensions(aNumDims),
                        m_ParticleRadius(aParticleRadius),
-                       m_BoxSize(aBoxSize)
+                       m_BoxSize(aBoxSize),
+					   m_MaxCorrelation(aMax_Correlation)
 {
    // @TODO throw exception if boxsize != number of dimensions
    m_Points.reserve(m_NumParticles);
@@ -75,7 +76,7 @@ void QMC_Config::initialize()
 }
 
 
-void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint)
+void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val)
 {
    // select the particle in preparation for moving
    unsigned pNumber = *pNode;
@@ -134,9 +135,14 @@ void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint)
 }
 
 
-void QMC_Config::move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint)
+void QMC_Config::move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint, bool aComputeEnergyFlag)
 {
    m_Points[aNodeNumber] = aNewPoint;
+
+   if(aComputeEnergyFlag && aNodeNumber < m_MaxCorrelation)
+   {
+	   computeEnergyTerms();
+   }
 }
 
 }; // end namespace QMC
