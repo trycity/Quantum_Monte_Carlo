@@ -2,7 +2,7 @@
 
 COMMON_DIRS = src/utils
 COMMON_DIRS += src/initialization
-#COMMON_DIRS += src/system
+COMMON_DIRS += src/wavefunctions
 
 #SOURCE_DIRS = src/initialization
 #SOURCE_DIRS += src/system
