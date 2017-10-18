@@ -9,8 +9,7 @@
 #define QMC_CONFIG_H 
 
 #include <vector>
-#include <valarray>
-#include <utility>
+#include <functional>
 
 #include "QMC_Typedefs.h"
 
@@ -34,7 +33,7 @@ public:
 	 *
 	 */
 	QMC_Config(unsigned aNumParticles, unsigned aNumDims,
-			double aParticleRadius, const std::valarray<double>& aBoxSize, unsigned aMax_Correlation);
+			double aParticleRadius, const std::vector<double>& aBoxSize, unsigned aMax_Correlation);
 
 	/**
 	 * Destroys a QMC_Config object
@@ -47,8 +46,12 @@ public:
 	 * @param pNode A pointer to the chosen node
 	 * @param aNewPoint The new position of the node
 	 * @param aProb_Val A pointer to the probability value
+	 * @param aWfnPhi The single body term of the wavefunction
+	 * @param aWfnF The two body interaction term of the wavefunction
+	 *
 	 */
-	void trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val);
+	void trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val,
+			std::function<double(double)> aWfnPhi, std::function<double(double)> aWfnF);
 
 	/**
 	 * Performs a move of a node from some initial point to an new point
@@ -60,22 +63,18 @@ public:
 	void move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint, bool aComputeEnergyFlag);
 
 	/**
-	 * Computes the energy of the system
+	 * Determine if the energy terms are to be computed
 	 *
-	 * @return The energy and the energy sqd values
+	 * @return the m_EnergyComputed flag
 	 */
-	//std::pair<double, double> computeEnergyTerms();
+	bool computeEnergyTerms() const;
+
 
 private:
 	/**
 	 * creates the initial configuration of the monte carlo simulation
 	 */
 	void initialize();
-
-	/**
-	 * Computes the energy terms
-	 */
-	void computeEnergyTerms();
 
 	/// The number of particles
 	unsigned m_NumParticles;
@@ -87,7 +86,7 @@ private:
 	double m_ParticleRadius;
 
 	/// The box size
-	const std::valarray<double>& m_BoxSize;
+	const std::vector<double>& m_BoxSize;
 
 	/// The coordinates of the particle positions
 	std::vector<UTILS::QMCPoint> m_Points;
@@ -98,8 +97,6 @@ private:
 	/// The max correlation term for energy computation
 	unsigned m_MaxCorrelation;
 
-	/// pair holds energy term and energy sqd term
-	std::pair<double, double> m_EnergyTerms;
 
 }; // end QMC_Config
 

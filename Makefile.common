@@ -10,8 +10,11 @@ CXX_FLAGS_32 := -m32
 CXX_FLAGS_64 := -m64
 
 CXXFLAGS := $(CXX_FLAGS_$(ARCH))
+# override default dependency output file
 CXXFLAGS += -MD
+# compiler to show warnings
 CXXFLAGS += -Wall
+# turn warnings into error
 CXXFLAGS += -Werror
 CXXFLAGS += -std=c++14
 ifeq ("$(DEBUG)", "y")

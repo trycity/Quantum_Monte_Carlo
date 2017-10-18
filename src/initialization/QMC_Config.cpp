@@ -15,7 +15,7 @@ namespace QMC
 {
  
 QMC_Config::QMC_Config(unsigned aNumParticles, unsigned aNumDims, double aParticleRadius,
-                       const std::valarray<double>& aBoxSize, unsigned aMax_Correlation):
+                       const std::vector<double>& aBoxSize, unsigned aMax_Correlation):
                        m_NumParticles(aNumParticles),
                        m_NumDimensions(aNumDims),
                        m_ParticleRadius(aParticleRadius),
@@ -76,7 +76,9 @@ void QMC_Config::initialize()
 }
 
 
-void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val)
+void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val,
+		std::function<double(double)> aWfnPhi,
+		std::function<double(double)> aWfnF)
 {
    // select the particle in preparation for moving
    unsigned pNumber = *pNode;
@@ -131,7 +133,20 @@ void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* 
       }
       
    }while(!acceptPosition);   
-      
+
+   //compute weight
+   double weight = 1.0;
+
+   double riTrial = UTILS::computeVectorSize(aNewPoint);
+   double ri = UTILS::computeVectorSize(m_Points[pNumber]);
+
+   weight *= aWfnPhi(riTrial) / aWfnPhi(ri);
+   for(unsigned i{0}; i < m_NumParticles; ++i)
+   {
+	   weight *= aWfnF(interParticleDistancesTrial[i]) / aWfnF(interParticleDistances[i]);
+   }
+
+   *aProb_Val = weight*weight;
 }
 
 
@@ -139,11 +154,15 @@ void QMC_Config::move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint, bo
 {
    m_Points[aNodeNumber] = aNewPoint;
 
-   if(aComputeEnergyFlag && aNodeNumber < m_MaxCorrelation)
-   {
-	   computeEnergyTerms();
-   }
+   // determine if energy is to be computed
+   m_EnergyComputed = aComputeEnergyFlag && (aNodeNumber < m_MaxCorrelation);
 }
+
+bool QMC_Config::computeEnergyTerms() const
+{
+	return m_EnergyComputed;
+}
+
 
 }; // end namespace QMC
 
