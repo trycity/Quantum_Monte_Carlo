@@ -16,9 +16,23 @@ namespace QMC
 class EffectiveRangeF
 {
 public:
+	/**
+	 * Effective range interaction term ctor
+	 *
+	 * @param as The s-wave scattering length
+	 */
 	explicit EffectiveRangeF(double as);
+
+	/**
+	 * destructor
+	 */
 	~EffectiveRangeF();
 
+	/**
+	 * overloaded method call operator
+	 *
+	 * @param rij The interparticle distance
+	 */
 	double operator()(double rij)const;
 
 private:
