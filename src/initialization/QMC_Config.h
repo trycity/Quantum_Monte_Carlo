@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <functional>
+#include <memory>
 
 #include "QMC_Typedefs.h"
 
@@ -50,8 +51,9 @@ public:
 	 * @param aWfnF The two body interaction term of the wavefunction
 	 *
 	 */
-	void trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val,
-			std::function<double(double)> aWfnPhi, std::function<double(double)> aWfnF);
+	void trialMove(std::unique_ptr<unsigned>& pNode, UTILS::QMCPoint& aNewPoint,
+			std::unique_ptr<double>& aProb_Val, std::function<double(double)> aWfnPhi,
+			std::function<double(double)> aWfnF);
 
 	/**
 	 * Performs a move of a node from some initial point to an new point

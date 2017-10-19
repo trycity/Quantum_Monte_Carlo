@@ -76,7 +76,8 @@ void QMC_Config::initialize()
 }
 
 
-void QMC_Config::trialMove(unsigned* pNode, UTILS::QMCPoint& aNewPoint, double* aProb_Val,
+void QMC_Config::trialMove(std::unique_ptr<unsigned>& pNode, UTILS::QMCPoint& aNewPoint,
+		std::unique_ptr<double>& aProb_Val,
 		std::function<double(double)> aWfnPhi,
 		std::function<double(double)> aWfnF)
 {
