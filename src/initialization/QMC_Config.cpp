@@ -164,6 +164,11 @@ bool QMC_Config::computeEnergyTerms() const
 	return m_EnergyComputed;
 }
 
+const std::vector<UTILS::QMCPoint>& QMC_Config::getPoints() const
+{
+	return m_Points;
+}
+
 
 }; // end namespace QMC
 

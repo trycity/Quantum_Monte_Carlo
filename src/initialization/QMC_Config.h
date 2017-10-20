@@ -71,6 +71,12 @@ public:
 	 */
 	bool computeEnergyTerms() const;
 
+	/**
+	 *
+	 * @return the particle positions
+	 */
+	const std::vector<UTILS::QMCPoint>& getPoints() const;
+
 
 private:
 	/**
