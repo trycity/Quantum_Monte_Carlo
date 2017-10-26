@@ -3,6 +3,7 @@
 COMMON_DIRS = src/utils
 COMMON_DIRS += src/initialization
 COMMON_DIRS += src/wavefunctions
+COMMON_DIRS += src/Metropolis_Walker
 
 #SOURCE_DIRS = src/initialization
 #SOURCE_DIRS += src/system

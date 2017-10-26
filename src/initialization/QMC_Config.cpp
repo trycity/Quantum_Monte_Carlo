@@ -157,6 +157,7 @@ void QMC_Config::move(unsigned aNodeNumber, const UTILS::QMCPoint& aNewPoint, bo
 
    // determine if energy is to be computed
    m_EnergyComputed = aComputeEnergyFlag && (aNodeNumber < m_MaxCorrelation);
+
 }
 
 bool QMC_Config::computeEnergyTerms() const
