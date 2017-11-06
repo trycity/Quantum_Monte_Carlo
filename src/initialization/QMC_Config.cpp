@@ -6,6 +6,7 @@
  */
  
 #include <random>
+#include <iostream>
  
 #include "QMC_Config.h"
 #include "QMC_Utilities.h"
@@ -24,6 +25,7 @@ QMC_Config::QMC_Config(unsigned aNumParticles, unsigned aNumDims, double aPartic
 {
    // @TODO throw exception if boxsize != number of dimensions
    m_Points.reserve(m_NumParticles);
+   initialize();
 }
 
 

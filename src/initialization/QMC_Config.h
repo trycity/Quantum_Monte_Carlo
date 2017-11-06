@@ -72,7 +72,7 @@ public:
 	bool computeEnergyTerms() const;
 
 	/**
-	 *
+	 * Accessor method for 
 	 * @return the particle positions
 	 */
 	const std::vector<UTILS::QMCPoint>& getPoints() const;
@@ -104,6 +104,10 @@ private:
 
 	/// The max correlation term for energy computation
 	unsigned m_MaxCorrelation;
+	
+#ifdef UNIT_TEST
+      friend class QMC_Config_Test;
+#endif // UNIT_TEST
 
 
 }; // end QMC_Config

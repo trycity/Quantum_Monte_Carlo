@@ -5,6 +5,8 @@ COMMON_DIRS += src/initialization
 COMMON_DIRS += src/wavefunctions
 COMMON_DIRS += src/Metropolis_Walker
 
+TEST_DIRS = src/initialization
+
 #SOURCE_DIRS = src/initialization
 #SOURCE_DIRS += src/system
 
@@ -19,7 +21,7 @@ all:
 	done
 
 test:
-	for dir in $(COMMON_DIRS); do \
+	for dir in $(TEST_DIRS); do \
 	 (echo $$dir; cd $$dir; make test)||exit;\
 	done
 	
