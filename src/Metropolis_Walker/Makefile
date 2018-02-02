@@ -4,6 +4,8 @@ include ../../Makefile.common
 
 CXXFLAGS += -I../utils
 CXXFLAGS += -I../initialization
+#CXXFLAGS += -fpermissive
+
 DIRECTORY = Metropolis_Walker
 
 

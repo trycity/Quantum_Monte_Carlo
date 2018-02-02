@@ -58,6 +58,8 @@ public:
 			}
 		}
 
+      double energy{0.0}, energySqd{0.0};
+      
 		// move and compute energy
 		for(unsigned i{0}; i < nConfigRun; i++)
 		{
@@ -69,9 +71,11 @@ public:
 
 			if(m_ConfigPTR->computeEnergyTerms())
 			{
-				//m_EnergyTerms = m_Energy_Func();
+				m_EnergyTerms = m_EnergyFunc(m_ConfigPTR->getPoints());
 			}
-
+			
+			energy += m_EnergyTerms.first();
+			energySqd += m_EnergyTerms.second();
 		}
 
 	}
@@ -87,7 +91,7 @@ private:
 	/// configuration object
 	std::unique_ptr<QMC_Config> m_ConfigPTR;
 
-	///
+	/// Energy functional
 	UTILS::Energy_Functional& m_EnergyFunc;
 
 	///
