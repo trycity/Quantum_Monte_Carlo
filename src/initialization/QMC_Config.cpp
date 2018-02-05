@@ -117,7 +117,7 @@ void QMC_Config::trialMove(std::unique_ptr<unsigned>& pNode, UTILS::QMCPoint& aN
       for(unsigned i{0}; i<pNumber; ++i)
       {
          interParticleDistancesTrial[i] = UTILS::QMC_Distance(m_Points[pNumber], m_Points[i]);
-         if(interParticleDistancesTrial[i] < m_ParticleRadius)
+         if(interParticleDistancesTrial[i] < 2.0*m_ParticleRadius)
          {
             acceptPosition = false;
             break;
@@ -127,7 +127,7 @@ void QMC_Config::trialMove(std::unique_ptr<unsigned>& pNode, UTILS::QMCPoint& aN
       for(unsigned i{pNumber+1}; i<m_NumParticles; ++i)
       {
          interParticleDistancesTrial[i] = UTILS::QMC_Distance(m_Points[pNumber], m_Points[i]);
-         if(interParticleDistancesTrial[i] < m_ParticleRadius)
+         if(interParticleDistancesTrial[i] < 2.0*m_ParticleRadius)
          {
             acceptPosition = false;
             break;
