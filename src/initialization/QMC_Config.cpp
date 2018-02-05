@@ -23,7 +23,6 @@ QMC_Config::QMC_Config(unsigned aNumParticles, unsigned aNumDims, double aPartic
                        m_BoxSize(aBoxSize),
 					   m_MaxCorrelation(aMax_Correlation)
 {
-   // @TODO throw exception if boxsize != number of dimensions
    m_Points.reserve(m_NumParticles);
    initialize();
 }
@@ -80,8 +79,8 @@ void QMC_Config::initialize()
 
 void QMC_Config::trialMove(std::unique_ptr<unsigned>& pNode, UTILS::QMCPoint& aNewPoint,
 		std::unique_ptr<double>& aProb_Val,
-		std::function<double(double)> aWfnPhi,
-		std::function<double(double)> aWfnF)
+		std::function<double(double)>& aWfnPhi,
+		std::function<double(double)>& aWfnF)
 {
    // select the particle in preparation for moving
    unsigned pNumber = *pNode;

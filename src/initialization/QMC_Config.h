@@ -52,8 +52,8 @@ public:
 	 *
 	 */
 	void trialMove(std::unique_ptr<unsigned>& pNode, UTILS::QMCPoint& aNewPoint,
-			std::unique_ptr<double>& aProb_Val, std::function<double(double)> aWfnPhi,
-			std::function<double(double)> aWfnF);
+			std::unique_ptr<double>& aProb_Val, std::function<double(double)>& aWfnPhi,
+			std::function<double(double)>& aWfnF);
 
 	/**
 	 * Performs a move of a node from some initial point to an new point
@@ -72,7 +72,8 @@ public:
 	bool computeEnergyTerms() const;
 
 	/**
-	 * Accessor method for 
+	 * Accessor method for particle positions
+	 *
 	 * @return the particle positions
 	 */
 	const std::vector<UTILS::QMCPoint>& getPoints() const;
