@@ -7,7 +7,7 @@ DIRECTORY = utils
 CXXFLAGS += -c
 
 all:
-	$(CXX) $(CXXFLAGS) *.cpp
+	$(CXX) $(CXXFLAGS) *.cpp -o $(DIRECTORY).o
 	
 test: all
 #	$(CXX) $(CXXFLAGS) -c -I../$(DIRECTORY) tests/*.cpp
