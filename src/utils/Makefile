@@ -4,18 +4,17 @@ include ../../Makefile.common
 
 DIRECTORY = utils
 
-#ODIR = obj
+ODIR = obj
 
 OBJS = $(DIRECTORY).o
 
 
-all:
+all: 
 	$(CXX) -c $(CXXFLAGS) *.cpp -o $(OBJS) 
+	mv *.o $(ODIR)/
 
-	
-
-.PHONY: clean
 	
 clean:
 	rm -rf *.d *.o
+	
 
