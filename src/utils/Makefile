@@ -4,16 +4,18 @@ include ../../Makefile.common
 
 DIRECTORY = utils
 
-CXXFLAGS += -c
+#ODIR = obj
+
+OBJS = $(DIRECTORY).o
+
 
 all:
-	$(CXX) $(CXXFLAGS) *.cpp -o $(DIRECTORY).o
+	$(CXX) -c $(CXXFLAGS) *.cpp -o $(OBJS) 
+
 	
-test: all
-#	$(CXX) $(CXXFLAGS) -c -I../$(DIRECTORY) tests/*.cpp
-#	$(CXX) $(CXXFLAGS) *.o -o tests/$(DIRECTORY)
+
+.PHONY: clean
 	
 clean:
-	rm -rf *.o *.d
-   
+	rm -rf *.d *.o
 
