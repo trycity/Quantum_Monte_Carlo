@@ -26,7 +26,7 @@ public:
    
    const std::map<double, double>& getResults() const
    {
-      return m_Results
+      return m_Results;
    }
    
 private:
@@ -47,7 +47,7 @@ QMC_Impl::QMC_Impl():pimpl{std::make_unique<impl>()}
 
 QMC_Impl::~QMC_Impl() = default;
 
-QMC_Impl::QMC_Impl(QMC_Imple&&) = default;
+QMC_Impl::QMC_Impl(QMC_Impl&&) = default;
 
 QMC_Impl& QMC_Impl::operator=(QMC_Impl&&) = default;
 

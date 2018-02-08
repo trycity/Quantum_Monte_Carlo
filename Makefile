@@ -4,6 +4,7 @@ COMMON_DIRS = src/utils
 COMMON_DIRS += src/initialization
 COMMON_DIRS += src/wavefunctions
 COMMON_DIRS += src/Metropolis_Walker
+COMMON_DIRS += src/QMC_Impl
 
 TEST_DIRS = src/initialization
 
