@@ -21,7 +21,10 @@ class QMC_Impl::impl
 public:
    void runSimulation()
    {
-   
+      double var_param = 0.49;
+      std::thread thread_1(simulation_instance, var_param);
+      
+      thread_1.join();
    }
    
    const std::map<double, double>& getResults() const
@@ -30,7 +33,7 @@ public:
    }
    
 private:
-   void simulation_instance()
+   static void simulation_instance(double variationalParam)
    {
    
    }
